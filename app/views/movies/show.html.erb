@@ -1,0 +1,64 @@
+<h1>Movie Show</h1>
+<div>
+  <div>
+      <h4>id: #<%= @movie.id %></h4>
+  </div>
+  <div>
+    title: <%= @movie.title %>
+  </div>
+  <div>
+    year: <%= @movie.year %>
+  </div>
+  <div>
+    duration: <%= @movie.duration %>
+  </div>
+  <div>
+    description: <%= @movie.description %>
+  </div>
+  <div>
+    image_url: <%= @movie.image_url %>
+  </div>
+  <div>
+    director_id: <%= @movie.director_id %>
+  </div>
+  <div>
+    created_at: <%= @movie.created_at %>
+  </div>
+  <div>
+    updated_at: <%= @movie.updated_at %>
+  </div>
+</div>
+
+<hr>
+<form action="/update_movie/<%= @movie.id %>">
+  <div>
+    <label for="title">title</label>
+    <input id="title" name="title" type="integer">    
+  </div>
+  <div>
+    <label for="year">year</label>
+    <input id="year" name="year" type="integer">    
+  </div>
+  <div>
+    <label for="duration">duration</label>
+    <input id="duration" name="duration" type="integer">  
+  </div>
+  <div>
+    <label for="description">description</label>
+    <textarea id="description" name="description"></textarea>  
+  </div>
+  <div>
+    <label for="image_url">image_url</label>
+    <input id="image_url" name="image_url" type="text">    
+  </div>
+  <div>
+    <label for="director_id">director_id</label>
+    <input id="director_id" name="director_id" type="integer">  
+  </div>
+
+  <input type="submit">
+</form>
+<hr>
+
+
+<a href="/delete_movie/<%= @movie.id %>"> Delete Movie

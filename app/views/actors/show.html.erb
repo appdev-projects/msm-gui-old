@@ -1,0 +1,48 @@
+<h1>Actor show</h1>
+<div>
+  <div>
+      <h4>id: #<%= @actor.id %></h4>
+  </div>
+  <div>
+    name: <%= @actor.name %>
+  </div>
+  <div>
+    dob: <%= @actor.dob %>
+  </div>
+  <div>
+    bio: <%= @actor.bio %>
+  </div>
+  <div>
+    image_url: <%= @actor.image_url %>
+  </div>
+  <div>
+    created_at: <%= @actor.created_at %>
+  </div>
+  <div>
+    updated_at: <%= @actor.updated_at %>
+  </div>
+</div>
+<hr>
+
+<form action="/update_actor/<%= @actor.id %>">
+  <div>
+    <label for="name">name</label>
+    <input id="name" name="name" type="text" value="<%= @actor.name %>">    
+  </div>
+  <div>
+    <label for="dob">dob</label>
+    <input id="dob" name="dob" type="date" value="<%= @actor.dob %>">    
+  </div>
+  <div>
+    <label for="bio">bio</label>
+    <textarea id="bio" name="bio"><%= @actor.bio %></textarea>  
+  </div>
+  <div>
+    <label for="image_url">image_url</label>
+    <input id="image_url" name="image_url" type="text" value="<%= @actor.image_url %>">    
+  </div>
+
+  <input type="submit">
+</form>
+
+<a href="/delete_actor/<%= @actor.id %>"> Delete Actor

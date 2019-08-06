@@ -1,0 +1,41 @@
+<h1> Character show</h1>
+<div>
+  <div>
+      <h4>id: #<%= @character.id %></h4>
+  </div>
+  <div>
+    name: <%= @character.name %>
+  </div>
+  <div>
+    actor_id: <%= @character.actor_id %>
+  </div>
+  <div>
+    movie_id: <%= @character.movie_id %>
+  </div>
+  <div>
+    created_at: <%= @character.created_at %>
+  </div>
+  <div>
+    updated_at: <%= @character.updated_at %>
+  </div>
+</div>
+<hr>
+
+<form action="/update_character/<%= @character.id %>">
+  <div>
+    <label for="name">name</label>
+    <input id="name" name="name" type="text" value="<%= @character.name %>">    
+  </div>
+  <div>
+    <label for="actor_id">actor_id</label>
+    <input id="actor_id" name="actor_id" type="integer" value="<%= @character.actor_id %>">    
+  </div>
+  <div>
+    <label for="movie_id">movie_id</label>
+    <input id="movie_id" name="movie_id" type="text" value="<%= @character.movie_id %>">    
+  </div>
+
+  <input type="submit">
+</form>
+
+<a href="/delete_character/<%= @character.id %>"> Delete Character

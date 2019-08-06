@@ -1,0 +1,42 @@
+<h1>Character index</h1>
+<form action="/create_character">
+  <div>
+    <label for="name">name</label>
+    <input id="name" name="name" type="text">    
+  </div>
+  <div>
+    <label for="actor_id">actor_id</label>
+    <input id="actor_id" name="actor_id" type="integer">    
+  </div>
+  <div>
+    <label for="movie_id">movie_id</label>
+    <input id="movie_id" name="movie_id" type="text">    
+  </div>
+
+  <input type="submit">
+</form>
+<hr>
+
+<% @characters.each do |character| %>
+  <div>
+    <div>
+        <h4>id: #<%= character.id %></h4>
+    </div>
+    <div>
+      name: <%= character.name %>
+    </div>
+    <div>
+      actor_id: <%= character.actor_id %>
+    </div>
+    <div>
+      movie_id: <%= character.movie_id %>
+    </div>
+    <div>
+      created_at: <%= character.created_at %>
+    </div>
+    <div>
+      updated_at: <%= character.updated_at %>
+    </div>
+  </div>
+  <hr>
+<% end %>
