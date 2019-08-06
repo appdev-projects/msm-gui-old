@@ -3,7 +3,7 @@ class DirectorsController < ApplicationController
     @directors = Director.all.order({ :name => :asc })
 
     respond_to do |format|
-      format.html { render({ :template => "index" })) }
+      format.html { render({ :template => "index" }) }
       format.json { render({ :json => @directors.as_json }) }
     end
   end
@@ -13,7 +13,7 @@ class DirectorsController < ApplicationController
     @director = Director.where({ :id => the_id }).at(0)
 
     respond_to do |format|
-      format.html { render({ :template => "show" })) }
+      format.html { render({ :template => "show" }) }
       format.json { render({ :json => @director.as_json }) }
     end
   end
@@ -29,7 +29,7 @@ class DirectorsController < ApplicationController
     director.save
 
     respond_to do |format|
-      format.html { redirect_to("/directors/#{director.id}")) }
+      format.html { redirect_to("/directors/#{director.id}") }
       format.json { render({ :json => director.as_json }) }
     end
   end
@@ -46,7 +46,7 @@ class DirectorsController < ApplicationController
     director.save
 
     respond_to do |format|
-      format.html { redirect_to("/directors/#{director.id}")) }
+      format.html { redirect_to("/directors/#{director.id}") }
       format.json { render({ :json => director.as_json }) }
     end
   end
@@ -58,7 +58,7 @@ class DirectorsController < ApplicationController
     director.destroy
 
     respond_to do |format|
-      format.html { redirect_to("/directors")) }
+      format.html { redirect_to("/directors") }
       format.json { render({ :json => director.as_json }) }
     end
   end

@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
     @movies = Movie.all.order({ :year => :asc })
     
     respond_to do |format|
-      format.html { render({ :template => "index" })) }
+      format.html { render({ :template => "index" }) }
       format.json { render({ :json => @movies.as_json }) }
     end
   end
@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
     @movie = Movie.where({ :id => the_id }).at(0)
 
    respond_to do |format|
-      format.html { render({ :template => "show" })) }
+      format.html { render({ :template => "show" }) }
       format.json { render({ :json => @movie.as_json }) }
     end
   end
@@ -30,7 +30,7 @@ class MoviesController < ApplicationController
     movie.save
     
     respond_to do |format|
-      format.html { redirect_to("/movies/#{movie.id}")) }
+      format.html { redirect_to("/movies/#{movie.id}") }
       format.json { render({ :json => movie.as_json }) }
     end
   end
@@ -48,7 +48,7 @@ class MoviesController < ApplicationController
     movie.save
 
     respond_to do |format|
-      format.html { redirect_to("/movies/#{movie.id}")) }
+      format.html { redirect_to("/movies/#{movie.id}") }
       format.json { render({ :json => movie.as_json }) }
     end
   end
@@ -60,7 +60,7 @@ class MoviesController < ApplicationController
     movie.destroy
     
     respond_to do |format|
-      format.html { redirect_to("/movies")) }
+      format.html { redirect_to("/movies") }
       format.json { render({ :json => movie.as_json }) }
     end
   end
@@ -69,7 +69,7 @@ class MoviesController < ApplicationController
     @movies = Movie.last_decade.order({ :year => :desc })
 
     respond_to do |format|
-      format.html { render({ :template => "index" })) }
+      format.html { render({ :template => "index" }) }
       format.json { render({ :json => @movies.as_json }) }
     end
   end
@@ -78,7 +78,7 @@ class MoviesController < ApplicationController
     @movies = Movie.long.order({ :duration => :desc })
 
     respond_to do |format|
-      format.html { render({ :template => "index" })) }
+      format.html { render({ :template => "index" }) }
       format.json { render({ :json => @movies.as_json }) }
     end
   end
@@ -87,7 +87,7 @@ class MoviesController < ApplicationController
    @ movies = Movie.short.order({ :duration => :asc })
 
     respond_to do |format|
-      format.html { render({ :template => "index" })) }
+      format.html { render({ :template => "index" }) }
       format.json { render({ :json => @movies.as_json }) }
     end
   end
@@ -99,7 +99,7 @@ class MoviesController < ApplicationController
     @the_director = movie.director
 
     respond_to do |format|
-      format.html { render({ :template => "../directors/show" })) }
+      format.html { render({ :template => "../directors/show" }) }
       format.json { render({ :json => @the_director.as_json }) }
     end
   end
@@ -111,7 +111,7 @@ class MoviesController < ApplicationController
     @the_characters = movie.characters.order({ :name => :asc })
 
     respond_to do |format|
-      format.html { render({ :template => "../characters/index" })) }
+      format.html { render({ :template => "../characters/index" }) }
       format.json { render({ :json => @the_characters.as_json }) }
     end
   end
@@ -123,7 +123,7 @@ class MoviesController < ApplicationController
     @actors = movie.cast.order({ :name => :asc })
 
     respond_to do |format|
-      format.html { render({ :template => "../actors/index" })) }
+      format.html { render({ :template => "../actors/index" }) }
       format.json { render({ :json => @actors.as_json }) }
     end
   end
