@@ -1,77 +1,98 @@
 class MoviesController < ApplicationController
 
   def index
-    movies = Movie.all
+    movies = Movie.all.order({ :year => :asc })
     
-    render({ :json => movies })
+    render({ :json => movies.as_json })
   end
   
   def show
-    id = params.fetch(:movie_id)
-    movie = Movie.where({ :id => id }).at(0)
-    render({ :json => movie })
+    the_id = params.fetch(:movie_id)
+    movie = Movie.where({ :id => the_id }).at(0)
+
+    render({ :json => movie.as_json })
   end
   
   def create
     movie = Movie.new
-    movie.title = params.fetch(:title)
-    movie.year = params.fetch(:year)
-    movie.duration = params.fetch(:duration)
-    movie.image_url = params.fetch(:image_url, "")
-    movie.director_id = params.fetch(:director_id)
+
+    movie.title = params.fetch(:input_title, nil)
+    movie.year = params.fetch(:input_year, nil)
+    movie.duration = params.fetch(:input_duration, nil)
+    movie.image_url = params.fetch(:input_image_url, nil)
+    movie.director_id = params.fetch(:input_director_id, nil)
+
     movie.save
     
-    render({ :json => movie })
+    render({ :json => movie.as_json })
   end
   
   def update
-    id = params.fetch(:movie_id)
-    movie = Movie.where({ :id => id }).at(0)
-    movie.title = params.fetch(:title)
-    movie.year = params.fetch(:year)
-    movie.duration = params.fetch(:duration)
-    movie.image_url = params.fetch(:image_url)
-    movie.director_id = params.fetch(:director_id)
+    the_id = params.fetch(:movie_id)
+    movie = Movie.where({ :id => the_id }).at(0)
+
+    movie.title = params.fetch(:input_title, movie.title)
+    movie.year = params.fetch(:input_year, movie.year)
+    movie.duration = params.fetch(:input_duration, movie.duration)
+    movie.image_url = params.fetch(:input_image_url, movie.image_url)
+    movie.director_id = params.fetch(:input_director_id, movie.director_id)
+
     movie.save
 
-    render({ :json => movie })
+    render({ :json => movie.as_json })
   end
   
   def destroy
-    id = params.fetch(:movie_id)
-    movie = Movie.where({ :id => id }).at(0)
+    the_id = params.fetch(:movie_id)
+    movie = Movie.where({ :id => the_id }).at(0)
+
     movie.destroy
     
-    render({ :json => movie })
+    render({ :json => movie.as_json })
   end
 
   def last_decade
-    render({ :json => Movie.last_decade })
+    movies = Movie.last_decade.order({ :year => :desc })
+
+    render({ :json => Movie.last_decade.as_json })
   end
  
   def long
-    render({ :json => Movie.long })
+    movies = Movie.long.order({ :duration => :desc })
+
+    render({ :json => movies.as_json })
   end
  
   def short
-    render({ :json => Movie.short })
+    movies = Movie.short.order({ :duration => :asc })
+
+    render({ :json => movies.as_json })
   end
  
   def director
-    id = params.fetch(:movie_id)
-    movie = Movie.where({ :id => id }).at(0)
-    render({ :json => movie.director })
+    the_id = params.fetch(:movie_id)
+    movie = Movie.where({ :id => the_id }).at(0)
+
+    the_director = movie.director
+
+    render({ :json => the_director.as_json })
   end
  
   def characters
-    id = params.fetch(:movie_id)
-    movie = Movie.where({ :id => id }).at(0)
-    render({ :json => movie.characters })
+    the_id = params.fetch(:movie_id)
+    movie = Movie.where({ :id => the_id }).at(0)
+    
+    the_characters = movie.characters.order({ :name => :asc })
+
+    render({ :json => the_characters.as_json })
   end
   
   def cast
-    id = params.fetch(:movie_id)
-    movie = Movie.where({ :id => id }).at(0)
-    render({ :json => movie.cast })
+    the_id = params.fetch(:movie_id)
+    movie = Movie.where({ :id => the_id }).at(0)
+
+    actors = movie.cast.order({ :name => :asc })
+
+    render({ :json => actors.as_json })
   end
 end

@@ -1,62 +1,71 @@
 class DirectorsController < ApplicationController
   def index
-    directors = Director.all
+    directors = Director.all.order({ :name => :asc })
 
-    render({ :json => directors })
+    render({ :json => directors.as_json })
   end
 
   def show
-    id = params.fetch(:director_id)
-    director = Director.where({ :id => id }).at(0)
-    render({ :json => director })
+    the_id = params.fetch(:director_id)
+    director = Director.where({ :id => the_id }).at(0)
+
+    render({ :json => director.as_json })
   end
 
   def create
     director = Director.new
-    director.name = params.fetch(:name)
-    director.dob = params.fetch(:dob)
-    director.bio = params.fetch(:bio)
-    director.image_url = params.fetch(:image_url)
+
+    director.name = params.fetch(:name, nil)
+    director.dob = params.fetch(:dob, nil)
+    director.bio = params.fetch(:bio, nil)
+    director.image_url = params.fetch(:image_url, nil)
+
     director.save
 
-    render({ :json => director })
+    render({ :json => director.as_json })
   end
 
   def update
-    id = params.fetch(:director_id)
-    director.name = params.fetch(:name)
-    director.dob = params.fetch(:dob)
-    director.bio = params.fetch(:bio)
-    director.image_url = params.fetch(:image_url)
+    the_id = params.fetch(:director_id)
+    director = Director.where({ :id => the_id }).at(0)
+
+    director.name = params.fetch(:name, director.name)
+    director.dob = params.fetch(:dob, director.dob)
+    director.bio = params.fetch(:bio, director.bio)
+    director.image_url = params.fetch(:image_url, director.image_url)
+    
     director.save
 
-    render({ :json => director })
-
+    render({ :json => director.as_json })
   end
 
   def destroy
-    id = params.fetch(:director_id)
-    director = Director.where({ :id => id }).at(0)
+    the_id = params.fetch(:director_id)
+    director = Director.where({ :id => the_id }).at(0)
+
     director.destroy
 
-    render({ :json => director })
+    render({ :json => director.as_json })
   end
 
   def youngest
-    id = params.fetch(:director_id)
-    director = Director.where({ :id => id }).at(0)
-    render({ :json => director.youngest })
+    director = Director.youngest
+    
+    render({ :json => director.as_json })
   end
 
   def eldest
-    id = params.fetch(:director_id)
-    director = Director.where({ :id => id }).at(0)
-    render({ :json => director.eldest })
+    director = Director.eldest
+
+    render({ :json => director.as_json })
   end
   
    def filmography
-    id = params.fetch(:director_id)
-    director = Director.where({ :id => id }).at(0)
-    render({ :json => director.filmography })
+    the_id = params.fetch(:director_id)
+    director = Director.where({ :id => the_id }).at(0)
+
+    movies = director.filmography.order({ :year => :asc })
+
+    render({ :json => movies.as_json })
   end
 end

@@ -1,45 +1,49 @@
 class CharactersController < ApplicationController
 
   def index
-    characters = Character.all
+    characters = Character.all.order({ :created_at => :asc })
 
-    render({ :json => characters })
+    render({ :json => characters.as_json })
   end
 
   def show
-    id = params.fetch(:character_id)
-    character = Character.where({ :id => id }).at(0)
-    render({ :json => character })
+    the_id = params.fetch(:character_id)
+    character = Character.where({ :id => the_id }).at(0)
+
+    render({ :json => character.as_json })
   end
 
   def create
     character = Character.new
-    character.name = params.fetch(:name)
-    character.actor_id = params.fetch(:actor_id)
-    character.movie_id = params.fetch(:movie_id)
+
+    character.name = params.fetch(:name, nil)
+    character.actor_id = params.fetch(:actor_id, nil)
+    character.movie_id = params.fetch(:movie_id, nil)
+
     character.save
 
-    render({ :json => character })
+    render({ :json => character.as_json })
   end
 
   def update
-    id = params.fetch(:character_id)
-    character = Character.where({ :id => id }).at(0)
-    character.name = params.fetch(:name)
-    character.actor_id = params.fetch(:actor_id)
-    character.movie_id = params.fetch(:movie_id)
+    the_id = params.fetch(:character_id)
+    character = Character.where({ :id => the_id }).at(0)
+
+    character.name = params.fetch(:name, character.name)
+    character.actor_id = params.fetch(:actor_id, character.actor_id)
+    character.movie_id = params.fetch(:movie_id, character.movie_id)
+    
     character.save
 
-    render({ :json => character })
-
+    render({ :json => character.as_json })
   end
 
   def destroy
-    id = params.fetch(:character_id)
-    character = Character.where({ :id => id }).at(0)
+    the_id = params.fetch(:character_id)
+    character = Character.where({ :id => the_id }).at(0)
+
     character.destroy
 
-    render({ :json => character })
-
+    render({ :json => character.as_json })
   end
 end
