@@ -1,15 +1,21 @@
 class MoviesController < ApplicationController
   def index
-    movies = Movie.all.order({ :year => :asc })
+    @movies = Movie.all.order({ :year => :asc })
     
-    render({ :json => movies.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "index" })) }
+      format.json { render({ :json => @movies.as_json }) }
+    end
   end
   
   def show
     the_id = params.fetch(:movie_id)
-    movie = Movie.where({ :id => the_id }).at(0)
+    @movie = Movie.where({ :id => the_id }).at(0)
 
-    render({ :json => movie.as_json })
+   respond_to do |format|
+      format.html { render({ :template => "show" })) }
+      format.json { render({ :json => @movie.as_json }) }
+    end
   end
   
   def create
@@ -23,7 +29,10 @@ class MoviesController < ApplicationController
 
     movie.save
     
-    render({ :json => movie.as_json })
+    respond_to do |format|
+      format.html { redirect_to("/movies/#{movie.id}")) }
+      format.json { render({ :json => movie.as_json }) }
+    end
   end
   
   def update
@@ -38,7 +47,10 @@ class MoviesController < ApplicationController
 
     movie.save
 
-    render({ :json => movie.as_json })
+    respond_to do |format|
+      format.html { redirect_to("/movies/#{movie.id}")) }
+      format.json { render({ :json => movie.as_json }) }
+    end
   end
   
   def destroy
@@ -47,51 +59,72 @@ class MoviesController < ApplicationController
 
     movie.destroy
     
-    render({ :json => movie.as_json })
+    respond_to do |format|
+      format.html { redirect_to("/movies")) }
+      format.json { render({ :json => movie.as_json }) }
+    end
   end
 
   def last_decade
-    movies = Movie.last_decade.order({ :year => :desc })
+    @movies = Movie.last_decade.order({ :year => :desc })
 
-    render({ :json => Movie.last_decade.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "index" })) }
+      format.json { render({ :json => @movies.as_json }) }
+    end
   end
  
   def long
-    movies = Movie.long.order({ :duration => :desc })
+    @movies = Movie.long.order({ :duration => :desc })
 
-    render({ :json => movies.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "index" })) }
+      format.json { render({ :json => @movies.as_json }) }
+    end
   end
  
   def short
-    movies = Movie.short.order({ :duration => :asc })
+   @ movies = Movie.short.order({ :duration => :asc })
 
-    render({ :json => movies.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "index" })) }
+      format.json { render({ :json => @movies.as_json }) }
+    end
   end
  
   def director
     the_id = params.fetch(:movie_id)
     movie = Movie.where({ :id => the_id }).at(0)
 
-    the_director = movie.director
+    @the_director = movie.director
 
-    render({ :json => the_director.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "../directors/show" })) }
+      format.json { render({ :json => @the_director.as_json }) }
+    end
   end
  
   def characters
     the_id = params.fetch(:movie_id)
     movie = Movie.where({ :id => the_id }).at(0)
     
-    the_characters = movie.characters.order({ :name => :asc })
+    @the_characters = movie.characters.order({ :name => :asc })
 
-    render({ :json => the_characters.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "../characters/index" })) }
+      format.json { render({ :json => @the_characters.as_json }) }
+    end
   end
   
   def cast
     the_id = params.fetch(:movie_id)
     movie = Movie.where({ :id => the_id }).at(0)
 
-    actors = movie.cast.order({ :name => :asc })
+    @actors = movie.cast.order({ :name => :asc })
 
-    render({ :json => actors.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "../actors/index" })) }
+      format.json { render({ :json => @actors.as_json }) }
+    end
   end
 end
