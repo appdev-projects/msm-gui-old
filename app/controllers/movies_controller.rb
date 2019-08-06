@@ -84,7 +84,7 @@ class MoviesController < ApplicationController
   end
  
   def short
-   @ movies = Movie.short.order({ :duration => :asc })
+   @movies = Movie.short.order({ :duration => :asc })
 
     respond_to do |format|
       format.html { render({ :template => "index" }) }
