@@ -3,7 +3,7 @@ class DirectorsController < ApplicationController
     @directors = Director.all.order({ :name => :asc })
 
     respond_to do |format|
-      format.html { render({ :template => "index" }) }
+      format.html { render({ :template => "directors/index" }) }
       format.json { render({ :json => @directors.as_json }) }
     end
   end
@@ -13,7 +13,7 @@ class DirectorsController < ApplicationController
     @director = Director.where({ :id => the_id }).at(0)
 
     respond_to do |format|
-      format.html { render({ :template => "show" }) }
+      format.html { render({ :template => "directors/show" }) }
       format.json { render({ :json => @director.as_json }) }
     end
   end
@@ -67,7 +67,7 @@ class DirectorsController < ApplicationController
     @director = Director.youngest
     
     respond_to do |format|
-      format.html { render({ :template => "show" })  }
+      format.html { render({ :template => "directors/show" })  }
       format.json { render({ :json => @director.as_json }) }
     end
   end
@@ -76,7 +76,7 @@ class DirectorsController < ApplicationController
     @director = Director.eldest
 
     respond_to do |format|
-      format.html { render({ :template => "show" })  }
+      format.html { render({ :template => "directors/show" })  }
       format.json { render({ :json => @director.as_json }) }
     end
   end
@@ -88,7 +88,7 @@ class DirectorsController < ApplicationController
     @movies = director.filmography.order({ :year => :asc })
 
     respond_to do |format|
-      format.html { render({ :template => "../movies/index" })  }
+      format.html { render({ :template => "movies/index" })  }
       format.json { render({ :json => @director.as_json }) }
     end
   end

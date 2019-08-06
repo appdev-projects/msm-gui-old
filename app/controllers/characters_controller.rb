@@ -3,7 +3,7 @@ class CharactersController < ApplicationController
     @characters = Character.all.order({ :created_at => :asc })
 
     respond_to do |format|
-      format.html { render({ :template => "index" }) }
+      format.html { render({ :template => "/characters/index" }) }
       format.json { render({ :json => @characters.as_json }) }
     end
   end
@@ -13,7 +13,7 @@ class CharactersController < ApplicationController
     @character = Character.where({ :id => the_id }).at(0)
 
     respond_to do |format|
-      format.html { render({ :template => "show" }) }
+      format.html { render({ :template => "/characters/show" }) }
       format.json { render({ :json => @character.as_json }) }
     end
   end

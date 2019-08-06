@@ -3,7 +3,7 @@ class ActorsController < ApplicationController
     @actors = Actor.all.order({ :name => :asc })
 
     respond_to do |format|
-      format.html { render({ :template => "index" }) }
+      format.html { render({ :template => "actors/index" }) }
       format.json { render({ :json => @actors.as_json }) }
     end
   end
@@ -13,7 +13,7 @@ class ActorsController < ApplicationController
     @actor = Actor.where({ :id => the_id }).at(0)
 
     respond_to do |format|
-      format.html { render({ :template => "show" }) }
+      format.html { render({ :template => "actors/show" }) }
       format.json { render({ :json => @actor.as_json }) }
     end
   end
@@ -70,7 +70,7 @@ class ActorsController < ApplicationController
     @movies = actor.filmography.order({ :year => :asc })
 
     respond_to do |format|
-      format.html { render({ :template => "../movies/index" }) }
+      format.html { render({ :template => "movies/index" }) }
       format.json { render({ :json => @movies.as_json }) }
     end
   end
@@ -82,7 +82,7 @@ class ActorsController < ApplicationController
     @the_characters = actor.characters.order({ :name => :asc })
     
     respond_to do |format|
-      format.html { render({ :template => "../characters/index" }) }
+      format.html { render({ :template => "characters/index" }) }
       format.json { render({ :json => @the_characters.as_json }) }
     end
   end
