@@ -1,15 +1,21 @@
 class DirectorsController < ApplicationController
   def index
-    directors = Director.all.order({ :name => :asc })
+    @directors = Director.all.order({ :name => :asc })
 
-    render({ :json => directors.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "index" })) }
+      format.json { render({ :json => @directors.as_json }) }
+    end
   end
 
   def show
     the_id = params.fetch(:director_id)
-    director = Director.where({ :id => the_id }).at(0)
+    @director = Director.where({ :id => the_id }).at(0)
 
-    render({ :json => director.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "show" })) }
+      format.json { render({ :json => @director.as_json }) }
+    end
   end
 
   def create
@@ -22,7 +28,10 @@ class DirectorsController < ApplicationController
 
     director.save
 
-    render({ :json => director.as_json })
+    respond_to do |format|
+      format.html { redirect_to("/directors/#{director.id}")) }
+      format.json { render({ :json => director.as_json }) }
+    end
   end
 
   def update
@@ -36,7 +45,10 @@ class DirectorsController < ApplicationController
     
     director.save
 
-    render({ :json => director.as_json })
+    respond_to do |format|
+      format.html { redirect_to("/directors/#{director.id}")) }
+      format.json { render({ :json => director.as_json }) }
+    end
   end
 
   def destroy
@@ -45,27 +57,39 @@ class DirectorsController < ApplicationController
 
     director.destroy
 
-    render({ :json => director.as_json })
+    respond_to do |format|
+      format.html { redirect_to("/directors")) }
+      format.json { render({ :json => director.as_json }) }
+    end
   end
 
   def youngest
-    director = Director.youngest
+    @director = Director.youngest
     
-    render({ :json => director.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "show" })  }
+      format.json { render({ :json => @director.as_json }) }
+    end
   end
 
   def eldest
-    director = Director.eldest
+    @director = Director.eldest
 
-    render({ :json => director.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "show" })  }
+      format.json { render({ :json => @director.as_json }) }
+    end
   end
   
    def filmography
     the_id = params.fetch(:director_id)
     director = Director.where({ :id => the_id }).at(0)
 
-    movies = director.filmography.order({ :year => :asc })
+    @movies = director.filmography.order({ :year => :asc })
 
-    render({ :json => movies.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "../movies/index" })  }
+      format.json { render({ :json => @director.as_json }) }
+    end
   end
 end

@@ -1,15 +1,21 @@
 class ActorsController < ApplicationController
   def index
-    actors = Actor.all.order({ :name => :asc })
+    @actors = Actor.all.order({ :name => :asc })
 
-    render({ :json => actors.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "index" })) }
+      format.json { render({ :json => @actors.as_json }) }
+    end
   end
 
   def show
     the_id = params.fetch(:actor_id)
-    actor = Actor.where({ :id => the_id }).at(0)
+    @actor = Actor.where({ :id => the_id }).at(0)
 
-    render({ :json => actor.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "show" })) }
+      format.json { render({ :json => @actor.as_json }) }
+    end
   end
 
   def create
@@ -22,7 +28,10 @@ class ActorsController < ApplicationController
 
     actor.save
 
-    render({ :json => actor.as_json })
+    respond_to do |format|
+      format.html { redirect_to("/actors/#{actor.id}.html")) }
+      format.json { render({ :json => actor.as_json }) }
+    end
   end
 
   def update
@@ -36,7 +45,10 @@ class ActorsController < ApplicationController
 
     actor.save
 
-    render({ :json => actor.as_json })
+    respond_to do |format|
+      format.html { redirect_to("/actors/#{actor.id}.html")) }
+      format.json { render({ :json => actor.as_json }) }
+    end
   end
 
   def destroy
@@ -45,24 +57,33 @@ class ActorsController < ApplicationController
 
     actor.destroy
 
-    render({ :json => actor.as_json })
+    respond_to do |format|
+      format.html { redirect_to("/actors.html")) }
+      format.json { render({ :json => actor.as_json }) }
+    end
   end
   
   def filmography
     the_id = params.fetch(:actor_id)
     actor = Actor.where({ :id => the_id }).at(0)
     
-    movies = actor.filmography.order({ :year => :asc })
+    @movies = actor.filmography.order({ :year => :asc })
 
-    render({ :json => movies.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "../movies/index" })) }
+      format.json { render({ :json => @movies.as_json }) }
+    end
   end
   
   def characters
     the_id = params.fetch(:actor_id)
     actor = Actor.where({ :id => the_id }).at(0)
 
-    the_characters = actor.characters.order({ :name => :asc })
+    @the_characters = actor.characters.order({ :name => :asc })
     
-    render({ :json => the_characters.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "../characters/index" })) }
+      format.json { render({ :json => @the_characters.as_json }) }
+    end
   end
 end

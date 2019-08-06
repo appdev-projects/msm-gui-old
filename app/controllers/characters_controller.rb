@@ -1,15 +1,21 @@
 class CharactersController < ApplicationController
   def index
-    characters = Character.all.order({ :created_at => :asc })
+    @characters = Character.all.order({ :created_at => :asc })
 
-    render({ :json => characters.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "index" })) }
+      format.json { render({ :json => @characters.as_json }) }
+    end
   end
 
   def show
     the_id = params.fetch(:character_id)
-    character = Character.where({ :id => the_id }).at(0)
+    @character = Character.where({ :id => the_id }).at(0)
 
-    render({ :json => character.as_json })
+    respond_to do |format|
+      format.html { render({ :template => "show" })) }
+      format.json { render({ :json => @character.as_json }) }
+    end
   end
 
   def create
@@ -21,7 +27,10 @@ class CharactersController < ApplicationController
 
     character.save
 
-    render({ :json => character.as_json })
+    respond_to do |format|
+      format.html { redirect_to("/characters/#{character.id}.html")) }
+      format.json { render({ :json => character.as_json }) }
+    end
   end
 
   def update
@@ -34,7 +43,10 @@ class CharactersController < ApplicationController
     
     character.save
 
-    render({ :json => character.as_json })
+    respond_to do |format|
+      format.html { redirect_to("/characters/#{character.id}.html")) }
+      format.json { render({ :json => character.as_json }) }
+    end
   end
 
   def destroy
@@ -43,6 +55,9 @@ class CharactersController < ApplicationController
 
     character.destroy
 
-    render({ :json => character.as_json })
+    respond_to do |format|
+      format.html { redirect_to("/characters")) }
+      format.json { render({ :json => character.as_json }) }
+    end
   end
 end
