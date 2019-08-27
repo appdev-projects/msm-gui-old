@@ -20,9 +20,9 @@ GIT
 
 GIT
   remote: https://github.com/firstdraft/web_git.git
-  revision: 69437ecbdef3bf4747772704964a5b33ea0524bd
+  revision: a0dd3aa71735515280c2378c0abb99b1ee9895d8
   specs:
-    web_git (0.0.3)
+    web_git (0.0.4)
       diffy
       git_clone_url
       jquery-rails
@@ -30,6 +30,7 @@ GIT
       tether-rails
       turbolinks (~> 5)
       tzinfo-data
+      yard (>= 0.9.20)
 
 GEM
   remote: https://rubygems.org/
@@ -366,6 +367,7 @@ GEM
     websocket-extensions (0.1.4)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yard (0.9.20)
 
 PLATFORMS
   ruby

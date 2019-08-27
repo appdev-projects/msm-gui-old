@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 2019_07_23_151208) do
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
-    t.string "year"
+    t.integer "year"
     t.integer "duration"
     t.text "description"
     t.string "image_url"
